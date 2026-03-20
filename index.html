@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAXFLIX | SUPREME LEADER BRAX-SCOTT</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #E50914; /* Netflix Red */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .main-box {
+            text-align: center;
+            padding: 40px;
+            border: 1px solid #222;
+            background: linear-gradient(180deg, #000 0%, #111 100%);
+            border-radius: 15px;
+            box-shadow: 0 0 100px rgba(229, 9, 20, 0.2);
+        }
+        h1 {
+            font-size: 90px;
+            margin: 0;
+            letter-spacing: -2px;
+            font-weight: 900;
+            text-shadow: 4px 4px 20px rgba(0,0,0,0.5);
+            animation: braxGlow 2s infinite alternate;
+        }
+        .owner {
+            color: #ffffff;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-top: -10px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 18px 50px;
+            background-color: #E50914;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 22px;
+            border-radius: 5px;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+        }
+        .btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: scale(1.1);
+            box-shadow: 0 0 40px #E50914;
+        }
+        @keyframes braxGlow {
+            from { transform: scale(1); text-shadow: 0 0 10px #E50914; }
+            to { transform: scale(1.05); text-shadow: 0 0 30px #E50914, 0 0 50px #ff0000; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-box">
+        <h1>BRAXFLIX</h1>
+        <div class="owner">Supreme Leader Brax-Scott</div>
+        <br>
+        <a href="https://web.stremio.com" class="btn">LAUNCH THE CINEMA</a>
+    </div>
+</body>
+</html>
