@@ -4,62 +4,86 @@
     <meta charset="UTF-8">
     <title>BRAFLIX | SUPREME LEADER BRAX</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; }
-        
-        /* HEADER MPYA: BRAFLIX by SUPREME LEADER BRAX */
-        #brax-header {
-            background: linear-gradient(90deg, #000 0%, #E50914 50%, #000 100%);
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-family: 'Arial Black', sans-serif;
-            font-size: 20px;
-            letter-spacing: 5px;
-            font-weight: bold;
-            text-shadow: 2px 2px 10px #000;
-            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.6);
+        /* RANGI YA MSINGI: NYEUSI NA NYEKUNDU TU */
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; font-family: 'Arial Black', sans-serif; }
+
+        /* INTRO ANIMATION (NETFLIX STYLE) */
+        #intro-screen {
             position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 10000;
-            text-transform: uppercase;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20000;
+            animation: fadeOut 1s ease-in 3.5s forwards; /* Inapotea baada ya sekunde 3.5 */
         }
 
-        /* IFRAME YA ENGINE */
+        #intro-text {
+            color: #E50914;
+            font-size: 80px;
+            font-weight: 900;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            transform: scale(0.5);
+            opacity: 0;
+            animation: netflixStyle 3s ease-out forwards;
+        }
+
+        @keyframes netflixStyle {
+            0% { transform: scale(0.5); opacity: 0; letter-spacing: 30px; filter: blur(10px); }
+            50% { transform: scale(1.1); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1); opacity: 1; letter-spacing: 10px; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* HEADER YA JUU */
+        #brax-header {
+            background: #000;
+            color: #E50914;
+            padding: 12px;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            border-bottom: 2px solid #E50914;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 10000;
+            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
+        }
+
+        /* IFRAME: TUNAFUTA RANGI YA BLUE KWA KUWEKA BACKGROUND NYEUSI */
         iframe {
             width: 100%;
             height: calc(100% - 50px);
             border: none;
             margin-top: 50px;
-            background-color: #000;
+            background-color: #000; /* Hii inafuta ule weupe/blue wa mwanzo */
         }
 
-        /* MASKING YA LOGO YA STREMIO */
+        /* LOGO MASK */
         .mask-logo {
             position: fixed;
-            top: 58px; 
-            left: 12px;
-            width: 45px;
-            height: 45px;
+            top: 58px; left: 12px;
+            width: 45px; height: 45px;
             background-color: #000;
             z-index: 9999;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             border: 2px solid #E50914;
-            box-shadow: 0 0 15px #E50914;
         }
-        .mask-logo::after {
-            content: "B";
-            color: #E50914;
-            font-weight: 900;
-            font-size: 28px;
-            font-family: 'Arial Black', sans-serif;
-        }
+        .mask-logo::after { content: "B"; color: #E50914; font-size: 28px; }
     </style>
 </head>
 <body>
+
+    <div id="intro-screen">
+        <div id="intro-text">BRAFLIX</div>
+    </div>
 
     <div id="brax-header">BRAFLIX by SUPREME LEADER BRAX</div>
     <div class="mask-logo"></div>
