@@ -1,71 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRAFLIX | SUPREME LEADER BRAX</title>
     <style>
-        body { background-color: #0d0d1a; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        header { background: #000; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; }
-        .logo-container img { height: 40px; border: 2px solid red; border-radius: 4px; padding: 2px; }
-        .search-bar { flex-grow: 1; max-width: 500px; margin: 0 30px; position: relative; }
-        .search-bar input { width: 100%; padding: 10px 20px; border-radius: 20px; border: none; background: #1e1e30; color: white; outline: none; }
-        .red-banner { background: linear-gradient(to bottom, #a00, #000); text-align: center; padding: 12px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .sidebar { position: fixed; left: 15px; top: 120px; display: flex; flex-direction: column; gap: 25px; color: #666; font-size: 1.4rem; z-index: 10; }
-        main { padding: 20px 20px 20px 80px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .see-all { color: #888; text-decoration: none; font-size: 0.9rem; }
-        .grid { display: flex; gap: 18px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
-        .card { min-width: 160px; text-align: center; transition: 0.3s; cursor: pointer; }
-        .card:hover { transform: scale(1.08); }
-        .card img { width: 100%; height: 240px; border-radius: 12px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.6); background: #1a1a2e; }
-        .card p { margin-top: 10px; font-size: 0.9rem; color: #ccc; font-weight: 500; }
+        /* RANGI YA MSINGI: NYEUSI NA NYEKUNDU TU */
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; font-family: 'Arial Black', sans-serif; }
+
+        /* INTRO ANIMATION (NETFLIX STYLE) */
+        #intro-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20000;
+            animation: fadeOut 1s ease-in 3.5s forwards; /* Inapotea baada ya sekunde 3.5 */
+        }
+
+        #intro-text {
+            color: #E50914;
+            font-size: 80px;
+            font-weight: 900;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            transform: scale(0.5);
+            opacity: 0;
+            animation: netflixStyle 3s ease-out forwards;
+        }
+
+        @keyframes netflixStyle {
+            0% { transform: scale(0.5); opacity: 0; letter-spacing: 30px; filter: blur(10px); }
+            50% { transform: scale(1.1); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1); opacity: 1; letter-spacing: 10px; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* HEADER YA JUU */
+        #brax-header {
+            background: #000;
+            color: #E50914;
+            padding: 12px;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            border-bottom: 2px solid #E50914;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 10000;
+            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
+        }
+
+        /* IFRAME: TUNAFUTA RANGI YA BLUE KWA KUWEKA BACKGROUND NYEUSI */
+        iframe {
+            width: 100%;
+            height: calc(100% - 50px);
+            border: none;
+            margin-top: 50px;
+            background-color: #000; /* Hii inafuta ule weupe/blue wa mwanzo */
+        }
+
+        /* LOGO MASK */
+        .mask-logo {
+            position: fixed;
+            top: 58px; left: 12px;
+            width: 45px; height: 45px;
+            background-color: #000;
+            z-index: 9999;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #E50914;
+        }
+        .mask-logo::after { content: "B"; color: #E50914; font-size: 28px; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div style="color: #9333ea;">🏠</div><div>🧭</div><div>📁</div><div>📅</div><div>🧩</div><div>⚙️</div>
+    <div id="intro-screen">
+        <div id="intro-text">BRAFLIX</div>
     </div>
 
-    <header>
-        <div class="logo-container">
-            <img src="BRAXFLIX.png" alt="B">
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search or paste link">
-        </div>
-        <div style="display: flex; gap: 20px; font-size: 1.3rem; color: #555;">
-            <span>🔳</span><span>👤</span>
-        </div>
-    </header>
+    <div id="brax-header">BRAFLIX by SUPREME LEADER BRAX</div>
+    <div class="mask-logo"></div>
 
-    <div class="red-banner">BRAFLIX BY SUPREME LEADER BRAX</div>
-
-    <main>
-        <div class="section-header">
-            <h2>Popular - Movie</h2>
-            <a href="#" class="see-all">See All ></a>
-        </div>
-        <div class="grid">
-            <div class="card"><img src="war_machine.jpg"><p>War Machine</p></div>
-            <div class="card"><img src="zootopia.jpg"><p>Zootopia 2</p></div>
-            <div class="card"><img src="good_luck.jpg"><p>Good Luck, Have Fun...</p></div>
-            <div class="card"><img src="sinners.jpg"><p>Sinners</p></div>
-            <div class="card"><img src="hamnet.jpg"><p>Hamnet</p></div>
-            <div class="card"><img src="one_battle.jpg"><p>One Battle After Another</p></div>
-        </div>
-
-        <div class="section-header" style="margin-top: 40px;">
-            <h2>Popular - Series</h2>
-            <a href="#" class="see-all">See All ></a>
-        </div>
-        <div class="grid">
-            <div class="card"><img src="one_piece.jpg"><p>One Piece</p></div>
-            <div class="card"><img src="the_pit.jpg"><p>The Pit</p></div>
-            <div class="card"><img src="paradise.jpg"><p>Paradise</p></div>
-        </div>
-    </main>
+    <iframe src="https://web.stremio.com" id="stremio-engine" allowfullscreen></iframe>
 
 </body>
 </html>
