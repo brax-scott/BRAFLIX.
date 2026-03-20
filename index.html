@@ -1,39 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="sw">
 <head>
-    <title>BRAFLIX | SUPREME LEADER BRAX-SCOTT</title>
+    <meta charset="UTF-8">
+    <title>BRAXFLIX | SUPREME LEADER BRAX-SCOTT</title>
     <style>
-        /* HAPA NDIKO KUNA RANGI ZA KIGAIDI */
-        body { 
-            background-color: #000000 !important; /* NYEUSI TULI */
-            color: #E50914 !important; /* NYEKUNDU YA NETFLIX */
-            font-family: 'Arial Black', sans-serif;
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; }
+        /* HAPA NDIKO TUNAPO-CLONE */
+        #header-bar {
+            background-color: #000;
+            color: #E50914; /* Red */
+            padding: 10px 20px;
             text-align: center;
-            padding-top: 15%;
-            margin: 0;
+            font-family: 'Arial Black', sans-serif;
+            border-bottom: 2px solid #E50914;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+            font-size: 24px;
+            letter-spacing: 5px;
         }
-        h1 { font-size: 100px; text-shadow: 5px 5px 30px #ff0000; margin: 0; }
-        p { color: #ffffff; font-size: 25px; letter-spacing: 8px; text-transform: uppercase; }
-        .launch-btn {
-            background-color: #E50914;
-            color: white;
-            padding: 25px 60px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 30px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 40px;
-            transition: 0.5s;
-            box-shadow: 0 0 20px #E50914;
+        iframe {
+            width: 100%;
+            height: calc(100% - 50px);
+            border: none;
+            margin-top: 50px;
         }
-        .launch-btn:hover { background-color: #ffffff; color: #000000; transform: scale(1.1); }
     </style>
 </head>
 <body>
-    <h1>BRAFLIX</h1>
-    <p>PROPERTY OF SUPREME LEADER BRAX-SCOTT</p>
-    <br>
-    <a href="https://web.stremio.com" class="launch-btn">LAUNCH CINEMA</a>
+    <div id="header-bar">BRAXFLIX BY SUPREME LEADER BRAX-SCOTT</div>
+    
+    <iframe src="https://web.stremio.com" allowfullscreen></iframe>
 </body>
 </html>
