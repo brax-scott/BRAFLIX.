@@ -1,18 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="sw">
 <head>
-    <title>BRAFLIX | SUPREME LEADER BRAX-SCOTT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRAFLIX | MARVEL EDITION</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
-        body { background-color: #000; color: #E50914; font-family: Arial, sans-serif; text-align: center; padding-top: 100px; }
-        h1 { font-size: 80px; margin-bottom: 10px; text-shadow: 2px 2px 20px #ff0000; }
-        p { color: white; font-size: 20px; letter-spacing: 5px; }
-        .btn { background-color: #E50914; color: white; padding: 20px 40px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 25px; transition: 0.5s; display: inline-block; margin-top: 30px; }
-        .btn:hover { background-color: white; color: black; box-shadow: 0 0 30px #E50914; }
+        :root { --marvel-red: #f0131e; --gold: #f3ae0b; }
+        body { background: #000; color: white; font-family: 'Impact', sans-serif; margin: 0; overflow-x: hidden; }
+
+        /* MARVEL INTRO ANIMATION */
+        #marvel-intro {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--marvel-red); z-index: 10000; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            transition: 0.8s;
+        }
+        .marvel-logo { 
+            background: white; color: var(--marvel-red); padding: 5px 20px;
+            font-size: 5rem; letter-spacing: -5px; border: 2px solid white;
+        }
+
+        /* JINA LINALOWAKA MOTO WA MARVEL */
+        .header-box {
+            background: linear-gradient(to bottom, #111, #000);
+            padding: 30px; text-align: center; border-bottom: 4px solid var(--marvel-red);
+        }
+        .fire-text {
+            font-size: 2.5rem; color: white; text-transform: uppercase;
+            text-shadow: 0 0 10px #f0131e, 0 0 20px #f0131e, 0 0 40px #ffcc00;
+            animation: marvel-burn 1s infinite alternate;
+        }
+        @keyframes marvel-burn {
+            from { transform: scale(1); text-shadow: 0 0 10px #f0131e; }
+            to { transform: scale(1.02); text-shadow: 0 0 30px #f0131e, 0 0 50px #ffcc00; }
+        }
+
+        /* THE PLAYER */
+        .player-wrapper { max-width: 900px; margin: 20px auto; padding: 10px; background: #0a0a0a; border-radius: 10px; }
+        .video-js { width: 100% !important; height: auto !important; aspect-ratio: 16/9; }
+        
+        /* MARVEL CARDS (DATA FROM CRON) */
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 20px; }
+        .m-card { background: #1a1a1a; border: 2px solid #333; border-radius: 5px; overflow: hidden; transition: 0.3s; }
+        .m-card:hover { border-color: var(--marvel-red); transform: translateY(-5px); }
+        .m-card img { width: 100%; height: 200px; object-fit: cover; }
     </style>
 </head>
 <body>
-    <h1>BRAFLIX</h1>
-    <p>PROPERTY OF SUPREME LEADER BRAX-SCOTT</p>
-    <a href="https://web.stremio.com" class="btn">OPEN BRAFLIX CINEMA</a>
+
+    <div id="marvel-intro" onclick="assemble()">
+        <div class="marvel-logo">MARVEL</div>
+        <audio id="intro-audio">
+            <source src="https://www.myinstants.com/media/sounds/marvel-studios-intro.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="header-box">
+        <div class="fire-text">BRAFLIX: SUPREME LEADER</div>
+        <p style="font-family: sans-serif; font-size: 0.8rem; color: var(--gold);">AVENGERS ASSEMBLE | AUTO-CRON ACTIVE</p>
+    </div>
+
+    <div class="player-wrapper">
+        <video id="marvel-player" class="video-js vjs-big-play-centered" controls preload="auto"></video>
+    </div>
+
+    <div style="padding: 0 20px; border-left: 5px solid var(--marvel-red); margin-left: 20px;">
+        <h3 id="current-title">Saka Movie Hapa...</h3>
+    </div>
+
+    <div class="content-grid" id="movie-list">
+        </div>
+
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script>
+        const player = videojs('marvel-player');
+
+        function assemble() {
+            document.getElementById('intro-audio').play();
+            document.getElementById('marvel-intro').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('marvel-intro').style.display = 'none';
+            }, 800);
+        }
+
+        // Hapa ndipo Cron Job inatupia data.json yake
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('movie-list');
+                data.forEach(m => {
+                    const card = document.createElement('div');
+                    card.className = 'm-card';
+                    card.innerHTML = `
+                        <img src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05.jpg" alt="Poster">
+                        <div style="padding:10px; font-size:0.8rem; text-align:center;">${m.name}</div>
+                    `;
+                    card.onclick = () => {
+                        document.getElementById('current-title').innerText = "Streaming: " + m.name;
+                        // Mbinu ya HLS.js kuzuia "Not Supported"
+                        player.src({ src: m.url, type: 'application/x-mpegURL' });
+                        player.play();
+                    };
+                    list.appendChild(card);
+                });
+            })
+            .catch(err => {
+                console.log("Cron bado haijaleta data...");
+            });
+    </script>
 </body>
 </html>
