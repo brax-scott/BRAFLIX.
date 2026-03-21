@@ -2,93 +2,91 @@
 <html lang="sw">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRAFLIX | SUPREME LEADER BRAX</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
-        /* RANGI YA MSINGI: NYEUSI NA NYEKUNDU TU */
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; font-family: 'Arial Black', sans-serif; }
+        :root { --brax-red: #ff0000; --bg: #000; }
+        body { background: var(--bg); color: white; font-family: 'Arial Black', sans-serif; margin: 0; }
+        
+        header { background: #000; padding: 15px; border-bottom: 2px solid var(--brax-red); text-align: center; }
+        .logo-text { color: var(--brax-red); letter-spacing: 5px; font-size: 0.9rem; font-weight: bold; }
 
-        /* INTRO ANIMATION (NETFLIX STYLE) */
-        #intro-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 20000;
-            animation: fadeOut 1s ease-in 3.5s forwards; /* Inapotea baada ya sekunde 3.5 */
-        }
+        /* PLAYER AREA */
+        .player-container { width: 100%; max-width: 1000px; margin: 20px auto; position: relative; }
+        .video-js { width: 100% !important; height: auto !important; aspect-ratio: 16/9; border: 1px solid #333; }
+        
+        /* ERROR MESSAGE OVERLAY */
+        .vjs-error-display { background: rgba(0,0,0,0.9) !important; color: var(--brax-red) !important; }
 
-        #intro-text {
-            color: #E50914;
-            font-size: 80px;
-            font-weight: 900;
-            letter-spacing: 15px;
-            text-transform: uppercase;
-            transform: scale(0.5);
-            opacity: 0;
-            animation: netflixStyle 3s ease-out forwards;
-        }
+        /* MOVIE INFO */
+        .movie-info { padding: 20px; border-top: 1px solid #222; margin-top: 20px; }
+        .status-badge { background: var(--brax-red); padding: 5px 10px; border-radius: 4px; font-size: 0.7rem; }
 
-        @keyframes netflixStyle {
-            0% { transform: scale(0.5); opacity: 0; letter-spacing: 30px; filter: blur(10px); }
-            50% { transform: scale(1.1); opacity: 1; filter: blur(0px); }
-            100% { transform: scale(1); opacity: 1; letter-spacing: 10px; }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
-        }
-
-        /* HEADER YA JUU */
-        #brax-header {
-            background: #000;
-            color: #E50914;
-            padding: 12px;
-            text-align: center;
-            font-size: 18px;
-            letter-spacing: 5px;
-            font-weight: bold;
-            border-bottom: 2px solid #E50914;
-            position: fixed;
-            top: 0; width: 100%;
-            z-index: 10000;
-            box-shadow: 0 5px 20px rgba(229, 9, 20, 0.4);
-        }
-
-        /* IFRAME: TUNAFUTA RANGI YA BLUE KWA KUWEKA BACKGROUND NYEUSI */
-        iframe {
-            width: 100%;
-            height: calc(100% - 50px);
-            border: none;
-            margin-top: 50px;
-            background-color: #000; /* Hii inafuta ule weupe/blue wa mwanzo */
-        }
-
-        /* LOGO MASK */
-        .mask-logo {
-            position: fixed;
-            top: 58px; left: 12px;
-            width: 45px; height: 45px;
-            background-color: #000;
-            z-index: 9999;
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            border: 2px solid #E50914;
-        }
-        .mask-logo::after { content: "B"; color: #E50914; font-size: 28px; }
+        /* BUTTONS */
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .play-btn { background: var(--brax-red); color: white; border: none; padding: 12px 25px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .vlc-btn { background: #ff8800; color: black; border: none; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; display: inline-block; }
     </style>
 </head>
 <body>
 
-    <div id="intro-screen">
-        <div id="intro-text">BRAFLIX</div>
+    <header>
+        <div class="logo-text">BRAFLIX by SUPREME LEADER BRAX</div>
+    </header>
+
+    <div class="player-container">
+        <video id="braflix-player" class="video-js vjs-big-play-centered vjs-theme-city" controls preload="auto" poster="https://via.placeholder.com/1280x720/000/ff0000?text=BRAFLIX+LOADING..."></video>
     </div>
 
-    <div id="brax-header">BRAFLIX by SUPREME LEADER BRAX</div>
-    <div class="mask-logo"></div>
+    <div class="movie-info">
+        <span class="status-badge">4K ULTRA HD</span>
+        <h2 id="m-title" style="margin: 10px 0;">Zootopia 2</h2>
+        <p style="color: #888; font-size: 0.9rem;">Server: Brax-Stremio-Bypass | Codec: H.265/HEVC</p>
+        
+        <div class="btn-group">
+            <button class="play-btn" onclick="retryStream()">RETRY STREAM</button>
+            <a id="vlc-link" href="#" class="vlc-btn">OPEN IN VLC PLAYER</a>
+        </div>
+    </div>
 
-    <iframe src="https://web.stremio.com" id="stremio-engine" allowfullscreen></iframe>
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
+    <script>
+        const movieUrl = "https://raw.githubusercontent.com/brax-scott/B-PLUS/main/movies/zootopia2.m3u8"; // MFANO WA LINK YA CRON
+        const player = videojs('braflix-player');
+
+        function loadStream(url) {
+            // Kama ni link ya .m3u8, tumia HLS Engine
+            if (url.includes('.m3u8')) {
+                player.src({ src: url, type: 'application/x-mpegURL' });
+            } else {
+                player.src({ src: url, type: 'video/mp4' });
+            }
+            
+            // Set link ya VLC (Hii inaitwa Intent kwa simu)
+            document.getElementById('vlc-link').href = "vlc://" + url;
+            
+            player.play().catch(e => {
+                console.log("Auto-play blocked, wait for user click.");
+            });
+        }
+
+        function retryStream() {
+            location.reload();
+        }
+
+        // Tunaita link yetu hapa
+        loadStream(movieUrl);
+
+        // Kurekebisha kosa la "Not Supported" - Auto Switcher
+        player.on('error', function() {
+            const error = player.error();
+            if(error.code === 4) {
+                alert("Browser yako haina codec za video hii. Tafadhali tumia kitufe cha 'OPEN IN VLC' hapo chini!");
+            }
+        });
+    </script>
 </body>
 </html>
