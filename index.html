@@ -1,96 +1,18 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAFLIX | SUPREME LEADER BRAX</title>
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <title>BRAFLIX | SUPREME LEADER BRAX-SCOTT</title>
     <style>
-        :root { --red: #e50914; --gold: #ffcc00; }
-        body { background: #000; color: white; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; overflow-x: hidden; }
-
-        /* JINA LINALOWAKA MOTO */
-        .fire-title {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            padding: 20px;
-            color: white;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff8800;
-            animation: burn 1.5s infinite alternate;
-            border-bottom: 2px solid var(--red);
-        }
-
-        @keyframes burn {
-            from { text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 30px #ff8800; transform: scale(1); }
-            to { text-shadow: 0 0 20px #f00, 0 0 40px #ff8800, 0 0 60px #ffcc00; transform: scale(1.05); }
-        }
-
-        /* INTRO OVERLAY (Sauti ya Netflix) */
-        #intro-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: black; z-index: 9999; display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-        }
-        .intro-logo { color: var(--red); font-size: 4rem; font-weight: 900; letter-spacing: 10px; }
-
-        /* PLAYER AREA */
-        .container { padding: 20px; max-width: 1000px; margin: auto; }
-        .video-js { width: 100% !important; height: auto !important; aspect-ratio: 16/9; border-radius: 8px; box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); }
-
-        .movie-detail { margin-top: 20px; border-left: 4px solid var(--red); padding-left: 15px; }
-        .badge { background: var(--red); padding: 3px 8px; font-size: 0.7rem; border-radius: 3px; font-weight: bold; }
+        body { background-color: #000; color: #E50914; font-family: Arial, sans-serif; text-align: center; padding-top: 100px; }
+        h1 { font-size: 80px; margin-bottom: 10px; text-shadow: 2px 2px 20px #ff0000; }
+        p { color: white; font-size: 20px; letter-spacing: 5px; }
+        .btn { background-color: #E50914; color: white; padding: 20px 40px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 25px; transition: 0.5s; display: inline-block; margin-top: 30px; }
+        .btn:hover { background-color: white; color: black; box-shadow: 0 0 30px #E50914; }
     </style>
 </head>
 <body>
-
-    <div id="intro-overlay" onclick="startApp()">
-        <div class="intro-logo">BRAFLIX</div>
-        <audio id="netflix-sound">
-            <source src="https://www.myinstants.com/media/sounds/netflix-intro.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-    <div class="fire-title">BRAFLIX by SUPREME LEADER BRAX</div>
-
-    <div class="container">
-        <video id="main-player" class="video-js vjs-big-play-centered" controls preload="auto"></video>
-        
-        <div class="movie-detail">
-            <span class="badge">4K ULTRA HD</span>
-            <h2 id="m-name">Zootopia 2</h2>
-            <p style="color: #666; font-size: 0.8rem;">Supreme Engine v2.0 | Automatic Link Scraper Active</p>
-        </div>
-    </div>
-
-    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-    <script>
-        const player = videojs('main-player');
-        
-        // Hapa ndio link yako ya Cron itakaa
-        const currentMovie = "https://raw.githubusercontent.com/brax-scott/B-PLUS/main/movies/zootopia2.m3u8";
-
-        function startApp() {
-            // Cheza Sauti
-            const sound = document.getElementById('netflix-sound');
-            sound.play();
-            
-            // Ficha Intro
-            document.getElementById('intro-overlay').style.display = 'none';
-            
-            // Anza Video
-            player.src({ src: currentMovie, type: 'application/x-mpegURL' });
-            player.play();
-        }
-
-        // Fix ya "Video Not Supported"
-        player.on('error', function() {
-            console.log("Najaribu mbinu ya pili...");
-            player.src({ src: currentMovie, type: 'video/mp4' });
-        });
-    </script>
+    <h1>BRAFLIX</h1>
+    <p>PROPERTY OF SUPREME LEADER BRAX-SCOTT</p>
+    <a href="https://web.stremio.com" class="btn">OPEN BRAFLIX CINEMA</a>
 </body>
 </html>
